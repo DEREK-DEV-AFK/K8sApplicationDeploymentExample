@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment # Type is Deployment creating pod
+metadata:
+  name: mongodb-deployment # name as 
+  labels:
+    app: mongodb # labeled as
+spec:
+  replicas: 1 # no of replicas
+  selector:
+    matchLabels: 
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo  # base image using 
+        ports:
+        - containerPort: 27017 # default port by mongoDB
+        env: # environment variables required to start mongodb
+        - name: MONGO_INITDB_ROOT_USERNAME   # username note: we cannot use config because of login credentials, so we will use secret here 
+          valueFrom: # since we are taking from secret
+            secretKeyRef:
+              name: mongodb-secret # name of secret
+              key: mongo-root-username # which key
+        - name: MONGO_INITDB_ROOT_PASSWORD # password note: same as above
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo-root-password 
