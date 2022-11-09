@@ -17,6 +17,10 @@ spec:
       containers:
       - name: mongodb
         image: mongo  # base image using 
+        resources: # resource limitation 
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
         ports:
         - containerPort: 27017 # default port by mongoDB
         env: # environment variables required to start mongodb
@@ -30,3 +34,16 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: mongo-root-password 
+---
+# Service start here 
+apiVersion: v1
+kind: Service # type Service 
+metadata:
+  name: mongodb-service # a name to service
+spec:
+  selector:
+    app: mongodb # name of pods label
+  ports:
+  - protocol: TCP
+    port: 27017 # service port 
+    targetPort: 27017 # containerPort of deployment
