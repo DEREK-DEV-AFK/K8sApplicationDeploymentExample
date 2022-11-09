@@ -63,3 +63,7 @@ note: k8s cluster should be running
     ```
     kubectl describe service <nameOfService>
     ```
+    - To get all components which start with "mongo"
+    ```
+    kubectl get all | grep mongo
+    ```
