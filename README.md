@@ -47,3 +47,19 @@ note: k8s cluster should be running
         ```
         kubectl describe pod <nameOfPod>
         ```
+- Creating service configuration
+    - This config will be inside same file `fileName:mogodbDeploy.yaml`
+    - For better practise this is the way
+- Deploy service 
+    - To deploy, the CLI command is 
+    ```
+    kubectl apply -f mongodbDeploy.yaml
+    ```    
+    - To see the list of Service in your machine
+    ```
+    kubectl get service
+    ```
+    - To see the description of specific service
+    ```
+    kubectl describe service <nameOfService>
+    ```
