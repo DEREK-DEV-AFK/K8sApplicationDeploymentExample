@@ -67,3 +67,51 @@ note: k8s cluster should be running
     ```
     kubectl get all | grep mongo
     ```
+### Step 2 : Mongo express deployment
+- Creating `Deployment` file for mongo express `fileName:mongoExpress.yaml`
+    - Requirement of mongo express
+        - ENV variables :
+            1. `ME_CONFIG_MONGODB_SERVER` : (which database to connect, it will be mongDB Address / internal service)
+            2. `ME_CONFIG_MONGODB_ADMINUSERNAME` : (username for admin credentials)
+            3. `ME_CONFIG_MONGODB_ADMINPASSWORD` : (password for admin credentials)
+- Creating `configMap` file for database url `fileName:mongoConfigMap.yaml`
+    - Takes service name as url
+- Deploying `configMap` file first in order to use it in `Deployment` of mongoExpress
+    - To deploy, CLI command is
+    ```
+    kubectl apply -f mongoConfigMap.yaml
+    ```
+    - To get list of configmap
+    ```
+    kubectl get configmap
+    ```
+    - To get description of specific confimap
+    ```
+    kubectl describe configmap <nameOfConfimap>
+    ```
+- Deploying `mongoExpress.yaml` file
+    - To deploy, CLI command is
+    ```
+    kubectl apply -f mongoExpress.yaml
+    ```
+    - To get list of pods deployed
+    ```
+    kubectl get pod
+    ```
+    - To get detail of specific pod
+    ```
+    kubectl describe pod <nameOfPod>
+    ```
+    - To get logs of specific pod
+    ```
+    kubectl logs <nameofPod>
+    ```
+- Creating an `External Service` for mongoExpress pod `fileName:mongoExpress.yaml`
+    - To deploy, CLi command is
+    ```
+    kubectl apply -f mongoExpress.yaml
+    ```
+    - To get the list of service
+    ```
+    kubectl get service
+    ```
